@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOGOUT } from '../../Constants/AuthConstants';
-
+import { PURGE } from 'redux-persist';
 const Header = () => {
   const dispatch = useDispatch();
   const AuthState = useSelector((state) => state.Auth);
@@ -12,6 +12,12 @@ const Header = () => {
     e.preventDefault();
     dispatch({
       type: LOGOUT,
+    });
+
+    dispatch({
+      type: PURGE,
+      key: 'root',
+      result: () => null,
     });
   };
 

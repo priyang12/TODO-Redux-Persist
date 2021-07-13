@@ -13,11 +13,10 @@ import setAuthToken from '../Utilis/SetAuthToken';
 
 export const LoadUser = (token) => async (dispatch) => {
   try {
-    console.log('sds');
     if (token) {
       setAuthToken(token);
       const { data } = await axios.get('/users/login');
-      console.log(data);
+
       dispatch({
         type: LOAD_USER,
         payload: data,
@@ -43,10 +42,9 @@ export const LoginUser = (user) => async (dispatch) => {
     });
     const { data } = await axios.post('/users/login', user);
 
-    localStorage.setItem('token', data?.token);
     dispatch({
       type: LOGIN_USER,
-      payload: data,
+      payload: data?.token,
     });
 
     dispatch(LoadUser(data.token));
@@ -64,8 +62,7 @@ export const RegisterUser = (user) => async (dispatch) => {
       type: SET_LOADING,
     });
     const { data } = await axios.post('/users/register', user);
-    console.log(data);
-    // localStorage.setItem('token', JSON.parse(data?.token));
+
     dispatch({
       type: REGISTER_USER,
       payload: data,

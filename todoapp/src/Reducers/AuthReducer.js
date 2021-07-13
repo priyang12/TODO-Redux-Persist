@@ -25,7 +25,7 @@ export const AuthReducer = (state = initstate, action) => {
     case REGISTER_USER:
       return {
         ...state,
-        token: payload,
+        Token: payload,
         loading: false,
         alert: null,
       };
@@ -43,13 +43,8 @@ export const AuthReducer = (state = initstate, action) => {
         loading: false,
       };
     case LOGOUT:
-      return {
-        ...state,
-        isAuth: false,
-        user: null,
-        loading: false,
-        alert: null,
-      };
+      localStorage.removeItem('persist:root');
+      state = undefined;
     case SET_ALERT:
       return {
         ...state,
