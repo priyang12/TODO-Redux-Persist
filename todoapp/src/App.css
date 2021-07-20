@@ -27,15 +27,14 @@ body {
   top: -10px;
 }
 .card-header {
-  /* background-color: #333; */
   font-weight: 400;
   text-align: center;
-  font-size: 2rem;
+  font-size: 3rem;
 }
 .card-body p {
   font-family: 'Reenie Beanie', cursive;
   font-weight: bolder;
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 .btn {
   padding: 1rem 2rem;
@@ -51,7 +50,10 @@ body {
 }
 
 .alert {
-  color: red;
+  color: rgb(231, 119, 119);
+}
+.done {
+  color: rgb(97, 120, 247);
 }
 .bg-1 {
   background-color: lightsteelblue;
@@ -66,28 +68,39 @@ body {
   color: #333;
 }
 .bg-4 {
-  background-color: #ccf;
+  background-color: rgb(72, 72, 139);
   color: #fff;
 }
 .bg-5 {
   background-color: rgb(21, 218, 119);
   color: #fff;
 }
-.impotance-red {
+.impotance-1 {
   text-align: center;
-  background-color: rgb(231, 119, 119);
+  background-color: red;
   color: #fff;
   text-transform: uppercase;
 }
-.impotance-green {
+.impotance-2 {
   text-align: center;
-  background-color: rgb(119, 231, 156);
+
+  background-color: green;
   color: #fff;
   text-transform: uppercase;
 }
-.impotance-yellow {
+.impotance-3 {
   text-align: center;
-  background-color: rgb(197, 231, 119);
+  background-color: yellow;
   color: #fff;
   text-transform: uppercase;
+}
+
+.card-body .dropdown button {
+  background-color: transparent;
+}
+.card-body .dropdown button:focus {
+  background-color: transparent;
+}
+.card-body .dropdown .dropdown-item button:hover {
+  color: #333;
 }

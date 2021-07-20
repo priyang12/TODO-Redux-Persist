@@ -3,6 +3,7 @@ import {
   LOAD_TASKS,
   ADD_TASKS,
   DELETE_TASKS,
+  EDIT_TASKS,
   SET_LOADING,
   SET_ALERT,
   CLEAN_ALERT,
@@ -15,6 +16,27 @@ export const LoadTasks = () => async (dispatch) => {
     });
     const { data } = await axios.get('/task');
 
+    dispatch({
+      type: LOAD_TASKS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: SET_ALERT,
+      payload: error?.response?.msg || 'SERVER ERROR',
+    });
+  }
+};
+export const FilterTasks = (keyword, sort) => async (dispatch) => {
+  try {
+    dispatch({
+      type: SET_LOADING,
+    });
+    const { data } = await axios.get(`/task?keyword=${keyword}`);
+    if (sort) {
+      await data.sort((a, b) => (a.Imporantancy > sort ? 1 : -1));
+    }
+    console.log('dfbidb');
     dispatch({
       type: LOAD_TASKS,
       payload: data,
@@ -69,22 +91,19 @@ export const DeleteTasks = (id) => async (dispatch) => {
     });
   }
 };
-export const EditTask = (id, task) => async (dispatch) => {
+export const EditTask = (id, task, index) => async (dispatch) => {
   try {
     dispatch({
       type: SET_LOADING,
     });
-    const { data } = await axios.put(`/tasks/${id}`, task);
-    console.log(typeof data);
+    const { data } = await axios.put(`/task/${id}`, task);
+
+    // data['index'] = index;
+    console.log(data);
     dispatch({
-      type: DELETE_TASKS,
-      payload: data,
+      type: EDIT_TASKS,
+      payload: { data, index },
     });
-    setTimeout(() => {
-      dispatch({
-        type: CLEAN_ALERT,
-      });
-    }, 2000);
   } catch (error) {
     dispatch({
       type: SET_ALERT,

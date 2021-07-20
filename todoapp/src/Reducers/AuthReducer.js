@@ -45,6 +45,9 @@ export const AuthReducer = (state = initstate, action) => {
     case LOGOUT:
       localStorage.removeItem('persist:root');
       state = undefined;
+      return {
+        state,
+      };
     case SET_ALERT:
       return {
         ...state,

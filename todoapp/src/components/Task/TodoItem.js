@@ -7,15 +7,17 @@ const TodoItem = ({ Task, index }) => {
   const dispatch = useDispatch();
   const MarkDoneTask = (e) => {
     e.preventDefault();
-    dispatch(EditTask(Task.id, { Status: true }, index));
+    dispatch(EditTask(Task._id, { Status: true }, index));
   };
   const DeleteTask = (e) => {
     e.preventDefault();
-
     dispatch(DeleteTasks(Task._id));
   };
   const randomINT = Math.floor(Math.random() * 4) + 1;
   const BgrandomINT = Math.floor(Math.random() * 5) + 1;
+  const Currentdate = new Date();
+  const Deadline = new Date(Task?.Deadline);
+
   return (
     <Fragment>
       <Card
@@ -24,24 +26,31 @@ const TodoItem = ({ Task, index }) => {
         }`}
       >
         <Card.Header>
-          <small>{Task.Title}</small>
+          <small>{Task.Title.toUpperCase()}</small>
         </Card.Header>
         <Card.Body className='pb-0'>
           <Card.Text
             as='h4'
-            className='font-weight-bold d-flex align-items-center'
+            className={`font-weight-bold d-flex align-items-center ${
+              Task.Status
+                ? 'done'
+                : Deadline?.getTime() <= Currentdate.getTime() && 'alert'
+            }
+            }`}
           >
-            Deadline: {Task.Deadline}
+            {Task.Status ? 'Task Done' : `Deadline : ${Task.Deadline}`}
             <DropdownButton
               id='dropdown-variants-Warning'
               title=''
               className='ml-auto'
             >
-              <Dropdown.Item>
-                <Button className='w-100' onClick={MarkDoneTask}>
-                  Mark Done
-                </Button>
-              </Dropdown.Item>
+              {!Task.Status && (
+                <Dropdown.Item>
+                  <Button className='w-100' onClick={MarkDoneTask}>
+                    Mark Done
+                  </Button>
+                </Dropdown.Item>
+              )}
 
               <Dropdown.Item>
                 <Button className='w-100' onClick={DeleteTask}>
@@ -50,10 +59,11 @@ const TodoItem = ({ Task, index }) => {
               </Dropdown.Item>
             </DropdownButton>
           </Card.Text>
+
           <Card.Text as='p'>{Task.TaskDescription}</Card.Text>
-          <Card.Footer className={`impotance-${Task.importance}`}>
-            <Card.Text as='h4'>{Task.importance}</Card.Text>
-          </Card.Footer>
+          <Card.Footer
+            className={`impotance-${Task.Imporantancy}`}
+          ></Card.Footer>
         </Card.Body>
       </Card>
     </Fragment>

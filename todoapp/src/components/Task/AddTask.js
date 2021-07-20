@@ -25,7 +25,7 @@ const AddTask = () => {
       console.log('notvalid');
     } else {
       taskbtn?.current.setAttribute('disabled', 'disabled');
-      console.log(NewTask);
+
       dispatch(AddTasks(NewTask));
       reset();
       setTimeout(() => {
@@ -35,8 +35,8 @@ const AddTask = () => {
   };
   return (
     <Fragment>
+      <h1 className='font-weight-bold text-center'>ADD TASK</h1>
       <Form onSubmit={onsubmit}>
-        <h1 className='font-weight-bold text-center'>ADD TASK</h1>
         <Form.Group>
           <Form.Control
             type='text'
@@ -65,8 +65,8 @@ const AddTask = () => {
           >
             <option>Select Importance</option>
             <option value='1'>Red</option>
-            <option value='2'>Green</option>
-            <option value='3'>Yellow</option>
+            <option value='2'>Yellow</option>
+            <option value='3'>Green</option>
           </Form.Control>
         </Form.Group>
         <Form.Group>

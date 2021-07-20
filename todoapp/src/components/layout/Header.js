@@ -7,7 +7,7 @@ import { PURGE } from 'redux-persist';
 const Header = () => {
   const dispatch = useDispatch();
   const AuthState = useSelector((state) => state.Auth);
-  const { isAuth } = AuthState;
+  const { isAuth, user } = AuthState;
   const logout = (e) => {
     e.preventDefault();
     dispatch({
@@ -23,16 +23,17 @@ const Header = () => {
 
   return (
     <Fragment>
-      <Row>
-        <Col>
-          <h1 className='text-center'>TODO LIST</h1>
-        </Col>
-        {isAuth && (
+      {isAuth && (
+        <Row>
+          <Col>
+            <h1 className='text-center'>{user.name}'s TODO LIST</h1>
+          </Col>
+
           <Col>
             <Button onClick={logout}>Logout</Button>
           </Col>
-        )}
-      </Row>
+        </Row>
+      )}
     </Fragment>
   );
 };

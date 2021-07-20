@@ -48,13 +48,21 @@ const GetTask = asyncHandler(async (req, res) => {
 const GetALLTask = asyncHandler(async (req, res) => {
   try {
     const id = req.user.id;
-    const tasks = await TaskModal.find({ user: id });
+    const keyword = req.query.keyword
+      ? {
+          Title: {
+            $regex: req.query.keyword,
+            $options: 'i',
+          },
+        }
+      : {};
+    const tasks = await TaskModal.find({ user: id, ...keyword });
     if (!tasks) {
       res.status(400);
       throw new Error('Cant Find the Tasks');
     } else {
       if (tasks.length > 0) res.status(201).json(tasks);
-      else res.status(201).json(null);
+      else res.status(201).json(tasks);
     }
   } catch (error) {
     res.status(400);

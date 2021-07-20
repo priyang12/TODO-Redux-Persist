@@ -4,9 +4,9 @@ import TodoItem from './TodoItem';
 import AddTask from './AddTask';
 import { useDispatch, useSelector } from 'react-redux';
 import { LoadTasks } from '../../Actions/TaskAction';
-import Spinner from '../layout/Spinner';
 import Message from '../layout/Message';
 import Loader from '../layout/Spinner';
+import Filter from './Filter';
 
 const Todo = () => {
   const dispatch = useDispatch();
@@ -26,6 +26,9 @@ const Todo = () => {
           <Row>
             <Col sm={12} md={6} lg={4} xl={4} className='my-5 px-5'>
               <AddTask />
+            </Col>
+            <Col sm={12} md={6} lg={7} xl={7} className='my-5 px-5'>
+              <Filter />
             </Col>
             {Tasks?.length <= 0 && (
               <Col className='m-5'>

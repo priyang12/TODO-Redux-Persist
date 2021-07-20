@@ -3,6 +3,7 @@ import {
   LOAD_TASK,
   ADD_TASKS,
   DELETE_TASKS,
+  EDIT_TASKS,
   SET_LOADING,
   SET_ALERT,
   CLEAN_ALERT,
@@ -39,6 +40,16 @@ export const TaskReducer = (state = initstate, action) => {
         Tasks: state.Tasks.concat(payload),
         loading: false,
         alert: null,
+      };
+    case EDIT_TASKS:
+      const tasks = [...state.Tasks];
+      tasks[payload.index] = payload.data;
+      return {
+        ...state,
+        Tasks: tasks,
+        loading: false,
+        alert: payload.msg,
+        error: null,
       };
     case DELETE_TASKS:
       return {
